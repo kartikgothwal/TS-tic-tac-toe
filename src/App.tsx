@@ -27,8 +27,15 @@ function App() {
     for (const pattern of winnerPattern) {
       const [a, b, c] = pattern;
       if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-        setWinner(board[a]);
+        setWinner("Winner " + board[a]);
         return;
+      } else {
+        const empty = board.some((item) => {
+          return item == "";
+        });
+        if (!empty) {
+          setWinner("Match Draw");
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,7 +50,7 @@ function App() {
       <div className="game">
         <h1>Tic Tac Toe</h1>
         <h1 className="my-2">
-          {winner ? `Winner ${winner}` : `NextPlayer : ${isXNext ? "X" : "O"}`}
+          {winner ? ` ${winner}` : `NextPlayer : ${isXNext ? "X" : "O"}`}
         </h1>
         <div className="board">
           {board.map((item, index: number) => {
